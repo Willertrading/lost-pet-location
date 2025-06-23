@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Found Pet Location</title>
+  <style>
+    body { font-family: Arial; text-align: center; margin-top: 100px; }
+    button { padding: 15px 30px; font-size: 18px; background: #ffcc00; border: none; border-radius: 10px; }
+  </style>
+</head>
+<body>
+  <h2>🐾 Help Me Get Home!</h2>
+  <p>Tap the button below to share your location with my owner.</p>
+  <button onclick="shareLocation()">📍 Share My Location</button>
+  <p id="status"></p>
+
+  <script>
+    function shareLocation() {
+      const status = document.getElementById('status');
+      if (!navigator.geolocation) {
+        status.textContent = "Geolocation is not supported by your browser.";
+        return;
+      }
+
+      status.textContent = "Requesting location…";
+
+      navigator.geolocation.getCurrentPosition(position => {
+        fetch('https://script.google.com/macros/s/AKfycbxyHp_fK-ah2lWIJ7XUbU0_Sekkcfebtz_gPC4jvLvT9ZdrXdJNJXXtk9NvlJ_jEZiAbw/exec', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            lat: position.coords.latitude,
+            lon: position.coords.longitude
+          })
+        }).then(() => {
+          status.textContent = "✅ Location sent! Thank you.";
+        }).catch(err => {
+          status.textContent = "❌ Failed to send location.";
+        });
+      }, () => {
+        status.textContent = "⚠️ Unable to retrieve location.";
+      });
+    }
+  </script>
+</body>
+</html>
