@@ -34,7 +34,7 @@
       output.textContent = `📍 Latitude: ${lat}, Longitude: ${lon}`;
 
       // Send to Google Sheet
-      fetch('https://script.google.com/macros/s/AKfycbxyHp_fK-ah2lWIJ7XUbU0_Sekkcfebtz_gPC4jvLvT9ZdrXdJNJXXtk9NvlJ_jEZiAbw/exec', {
+      fetch('https://script.google.com/macros/s/AKfycbxqGoM-4H-J_Dggy4vvVsXpyqF2nwDHXtVsBjA_DhFltZuZhfE1XHsIBFHDIy5nwoRW/exec', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ lat, lon })
