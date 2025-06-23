@@ -15,32 +15,41 @@
   <p id="location"></p>
 
   <script>
-    function shareLocation() {
-      const status = document.getElementById('status');
-      if (!navigator.geolocation) {
-        status.textContent = "Geolocation is not supported by your browser.";
-        return;
-      }
+  function shareLocation() {
+    const status = document.getElementById('status');
+    const output = document.getElementById('location');
 
-      status.textContent = "Requesting location…";
-
-      navigator.geolocation.getCurrentPosition(position => {
-        fetch('https://script.google.com/macros/s/AKfycbxqGoM-4H-J_Dggy4vvVsXpyqF2nwDHXtVsBjA_DhFltZuZhfE1XHsIBFHDIy5nwoRW/exec', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            lat: position.coords.latitude,
-            lon: position.coords.longitude
-          })
-        }).then(() => {
-          status.textContent = "✅ Location sent! Thank you.";
-        }).catch(err => {
-          status.textContent = "❌ Failed to send location.";
-        });
-      }, () => {
-        status.textContent = "⚠️ Unable to retrieve location.";
-      });
+    if (!navigator.geolocation) {
+      status.textContent = "Geolocation is not supported by your browser.";
+      return;
     }
-  </script>
+
+    status.textContent = "Requesting location…";
+
+    navigator.geolocation.getCurrentPosition(position => {
+      const lat = position.coords.latitude.toFixed(6);
+      const lon = position.coords.longitude.toFixed(6);
+
+      // Display the latitude
+      output.textContent = `📍 Latitude: ${lat}`;
+
+      // Send to Google Sheet
+      fetch('https://script.google.com/macros/s/AKfycbxyHp_fK-ah2lWIJ7XUbU0_Sekkcfebtz_gPC4jvLvT9ZdrXdJNJXXtk9NvlJ_jEZiAbw/exec', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ lat, lon })
+      })
+      .then(() => {
+        status.textContent = "✅ Location sent! Thank you.";
+      })
+      .catch(() => {
+        status.textContent = "❌ Failed to send location.";
+      });
+
+    }, () => {
+      status.textContent = "⚠️ Unable to retrieve location.";
+    });
+  }
+</script>
 </body>
 </html>
