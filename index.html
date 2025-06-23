@@ -81,7 +81,7 @@
   <script>
     function shareLocation() {
       const status = document.getElementById('status');
-      const output = document.getElementById('location');
+      
 
       if (!navigator.geolocation) {
         status.textContent = "Geolocation not supported.";
@@ -97,8 +97,6 @@
         document.getElementById('locForm').submit();
         status.textContent = "✅ Location sent! Thank you.";
 
-        // Display the latitude
-      output.textContent = `📍 Latitude: ${lat}, Longitude: ${lon}`;
         
         
       }, err => {
