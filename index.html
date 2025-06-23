@@ -31,7 +31,7 @@
       const lon = position.coords.longitude.toFixed(6);
 
       // Display the latitude
-      output.textContent = `📍 Latitude: ${lat}`;
+      output.textContent = `📍 Latitude: ${lat}, Longitude: ${lon}`;
 
       // Send to Google Sheet
       fetch('https://script.google.com/macros/s/AKfycbxyHp_fK-ah2lWIJ7XUbU0_Sekkcfebtz_gPC4jvLvT9ZdrXdJNJXXtk9NvlJ_jEZiAbw/exec', {
