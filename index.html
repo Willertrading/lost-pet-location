@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,5 +52,54 @@
     });
   }
 </script>
+</body>
+</html>
+
+-->
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lost Pet Location</title>
+</head>
+<body>
+  <h1>🐾 Lost Pet Location Helper</h1>
+  <p id="status">Click the button to share your location.</p>
+  <button onclick="shareLocation()">📍 Share My Location</button>
+
+  <form id="locForm"
+        action="https://script.google.com/macros/s/AKfycbxqGoM-4H-J_Dggy4vvVsXpyqF2nwDHXtVsBjA_DhFltZuZhfE1XHsIBFHDIy5nwoRW/exec"
+        method="get" target="hidden_iframe">
+    <input type="hidden" name="lat" id="lat_input">
+    <input type="hidden" name="lon" id="lon_input">
+  </form>
+
+  <iframe name="hidden_iframe" style="display:none;"></iframe>
+
+  <script>
+    function shareLocation() {
+      const status = document.getElementById('status');
+      if (!navigator.geolocation) {
+        status.textContent = "Geolocation not supported.";
+        return;
+      }
+      status.textContent = "Requesting location…";
+
+      navigator.geolocation.getCurrentPosition(pos => {
+        const lat = pos.coords.latitude.toFixed(6);
+        const lon = pos.coords.longitude.toFixed(6);
+        document.getElementById('lat_input').value = lat;
+        document.getElementById('lon_input').value = lon;
+        document.getElementById('locForm').submit();
+        status.textContent = "✅ Location sent! Thank you.";
+        
+        
+      }, err => {
+        status.textContent = "⚠️ " + err.message;
+      });
+    }
+  </script>
 </body>
 </html>
