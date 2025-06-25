@@ -10,29 +10,26 @@
 </head>
 <body>
   <h2>🐾 Help Me Get Home!</h2>
-  <p>Tap the button below to share your location with my owner.</p>
-  <button onclick="shareLocation()">📍 Share My Location</button>
+  <p>Tap the button below to share your location with my owner via text.</p>
+  <button onclick="shareAndText()">📍 Text My Location</button>
   <p id="status"></p>
   <p id="location"></p>
 
-<a id="textOwnerLink" href="#" style="display: inline-block; margin-top: 20px; text-decoration: none;">
-  <button>📨 Text My Owner</button>
-</a>
 
 
   
   <script>
-  function shareLocation() {
+  function shareAndText() {
     const status = document.getElementById('status');
     const output = document.getElementById('location');
-    const textOwnerLink = document.getElementById('textOwnerLink');
+    
 
     if (!navigator.geolocation) {
       status.textContent = "Geolocation is not supported by your browser.";
       return;
     }
 
-    status.textContent = "Requesting location…";
+    status.textContent = "Getting Your location…";
 
     navigator.geolocation.getCurrentPosition(position => {
       const lat = position.coords.latitude.toFixed(6);
@@ -43,44 +40,35 @@
 
 
   // Format the SMS link
-    const phone = "+16142167671"; // Replace with your real phone number
-    const message = encodeURIComponent(`I found your pet! Here is my location: https://maps.google.com/?q=${lat},${lon}`);
-    textOwnerLink.href = `sms:${phone}?&body=${message}`;
+        const phone = "+16142167671"; // <-- Your phone number
+        const message = encodeURIComponent(`I found your pet! Here is my location: https://maps.google.com/?q=${lat},${lon}`);
+        const smsLink = `sms:${phone}?&body=${message}`;
 
 
       
 
       // Send to Google Sheet
-      fetch('https://script.google.com/macros/s/AKfycbxqGoM-4H-J_Dggy4vvVsXpyqF2nwDHXtVsBjA_DhFltZuZhfE1XHsIBFHDIy5nwoRW/exec', {
-   
-      method: 'POST',
-          
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ lat, lon })
-        
-      })
-      .then(() => {
-        status.textContent = "✅ Location sent! Thank you.";
-      })
-      .catch(() => {
-        status.textContent = "❌ Failed to send location.";
+        fetch('https://script.google.com/macros/s/AKfycbxqGoM-4H-J_Dggy4vvVsXpyqF2nwDHXtVsBjA_DhFltZuZhfE1XHsIBFHDIy5nwoRW/exec', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ lat, lon })
+        })
+        .catch(() => {
+          console.log("Google Sheets logging failed.");
+        });
+
+        status.textContent = "✅ Location captured. Opening your texting app...";
+
+        // Redirect to open SMS app
+        window.location.href = smsLink;
+
+      }, () => {
+        status.textContent = "⚠️ Unable to retrieve location.";
       });
-
-     
-
-
-    }, () => {
-      status.textContent = "⚠️ Unable to retrieve location.";
-    });
-  }
-</script>
-  
-
-
-
+    }
+  </script>
 </body>
 </html>
-
 -->
 
 
