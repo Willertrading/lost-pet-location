@@ -19,6 +19,7 @@
   function shareLocation() {
     const status = document.getElementById('status');
     const output = document.getElementById('location');
+    const textOwnerLink = document.getElementById('textOwnerLink');
 
     if (!navigator.geolocation) {
       status.textContent = "Geolocation is not supported by your browser.";
@@ -49,6 +50,12 @@
       .catch(() => {
         status.textContent = "❌ Failed to send location.";
       });
+
+      / Format the SMS link
+    const phone = "+16142167671"; // Replace with your real phone number
+    const message = encodeURIComponent(`I found your pet! Here is my location: https://maps.google.com/?q=${lat},${lon}`);
+    textOwnerLink.href = `sms:${phone}?&body=${message}`;
+
 
     }, () => {
       status.textContent = "⚠️ Unable to retrieve location.";
