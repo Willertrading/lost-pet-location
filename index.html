@@ -4,11 +4,26 @@
 <head>
   <title>Found Pet Location</title>
   <style>
-    body { font-family: Arial; text-align: center; margin-top: 100px; }
-    button { padding: 15px 30px; font-size: 18px; background: #ffcc00; border: none; border-radius: 10px; }
+    body { font-family: Arial; text-align: center; margin-top: 50px; }
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      background: #ffcc00;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    img {
+      max-width: 300px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
   </style>
 </head>
 <body>
+
+  <!-- 🖼️ Pet image -->
+  <img src="https://example.com/your-pet-photo.jpg" alt="Lost pet photo">
   <h2>🐾 Help Me Get Home!</h2>
   <p>Tap the button below to share your location with my owner via text.</p>
   <button onclick="shareAndText()">📍 Text My Location</button>
