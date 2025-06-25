@@ -41,7 +41,7 @@
           
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ lat, lon })
-        mode: 'no-cors'
+        
       })
       .then(() => {
         status.textContent = "✅ Location sent! Thank you.";
