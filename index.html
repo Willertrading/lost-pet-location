@@ -4,26 +4,45 @@
 <head>
   <title>Found Pet Location</title>
   <style>
-    body { font-family: Arial; text-align: center; margin-top: 50px; }
-    button {
-      padding: 15px 30px;
-      font-size: 18px;
-      background: #ffcc00;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-    img {
-      max-width: 300px;
-      border-radius: 20px;
-      margin-bottom: 20px;
+    body {
+    font-family: Arial;
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  .main-header {
+    font-size: 48px;
+    font-weight: bold;
+    color: red;
+    margin-top: 0;
+    padding: 20px;
+    background-color: #fff3cd;
+    border-bottom: 4px solid red;
+  }
+
+  .pet-name {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 10px 0 20px;
+    color: #333;
+  }
+
+  button {
+    padding: 15px 30px;
+    font-size: 18px;
+    background: #ffcc00;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
     }
   </style>
 </head>
 <body>
 
   <!-- 🖼️ Pet image -->
+  <h1 class="main-header">🚨 FOUND PET 🚨</h1>
   <img src="images/missing_pet.jpg" alt="Found pet" style="max-width:300px; border-radius:20px;">
+  <h2 class="pet-name">Shadow</h2>
   
   <h2>🐾 Help Me Get Home!</h2>
   <p>Tap the button below to share your location with my owner via text.</p>
