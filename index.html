@@ -66,6 +66,9 @@
      .sex {
   background-color: #B57EDC; /* purple */
 }
+       .age {
+  background-color: #B57EDC; /* purple */
+}
   </style>
 </head>
 <body>
@@ -81,6 +84,7 @@
   <span class="tag breed">American Short Hair</span>
     <span class="tag color">Black Hair</span>
      <span class="tag sex">Male</span>
+    <span class="tag age" id="age">Age: calculating...</span>
 </div>
   
  <h2>About Me</h2>
@@ -101,7 +105,7 @@
   
   <h2>🐾 Help Me Get Home!</h2>
   <p>Tap the button below to share your location with my owner via text.</p>
-  <button onclick="shareAndText()">📍 Text My Location</button>
+  <button onclick="shareAndText()">📍 Text and Share My Location</button>
   <p id="status"></p>
   <p id="location"></p>
 
@@ -156,6 +160,22 @@
         status.textContent = "⚠️ Unable to retrieve location.";
       });
     }
+// 🎂 Birthday calculation
+const birthday = new Date("2023-07-28"); // <-- Replace with actual birthdate
+const today = new Date();
+
+let age = today.getFullYear() - birthday.getFullYear();
+const monthDiff = today.getMonth() - birthday.getMonth();
+const dayDiff = today.getDate() - birthday.getDate();
+
+if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+  age--;
+}
+
+// Update the span with calculated age
+document.getElementById("age").textContent = `Age: ${age}`;
+
+    
   </script>
 </body>
 </html>
