@@ -52,23 +52,14 @@
   font-size: 18px;
 }
 
-.species {
-  background-color: #4caf50; /* green */
-}
 
-.breed {
-  background-color: #607d8b /* Slate gray-blue */
-}
+  .species { background-color: #4caf50; }
+    .breed { background-color: #607d8b; }
+    .color { background-color: #ff9800; }
+    .sex { background-color: #42a5f5; }
+    .age { background-color: #9c27b0; }
 
-    .color {
-  background-color: #ff9800; /* Bright orange*/
-}
-     .sex {
-  background-color: #42a5f5 /* Blue */
-}
-       .age {
-  background-color: #9c27b0; /* purple */
-}
+    
   </style>
 </head>
 <body>
@@ -80,11 +71,11 @@
 
 
   <div class="tags">
-  <span class="tag species">Cat</span>
-  <span class="tag breed">American Short Hair</span>
-    <span class="tag color">Black Hair</span>
-     <span class="tag sex">Male</span>
-    <span class="tag age" id="age">Age: calculating...</span>
+  <span class="tag species" id="pet-species"></span>
+    <span class="tag breed" id="pet-breed"></span>
+    <span class="tag color" id="pet-color"></span>
+    <span class="tag sex" id="pet-sex"></span>
+    <span class="tag age" id="pet-age">Age: calculating...</span>
 </div>
   
  <h2>About Me</h2>
@@ -117,6 +108,36 @@
 
   
   <script>
+/ 🔁 Reusable Pet Info Constants
+    const pet = {
+      name: "Shadow",
+      species: "Cat",
+      breed: "American Short Hair",
+      color: "Black & White",
+      sex: "Female",
+      birthday: "2023-07-28"
+};
+   // 🖋️ Insert values into the page
+    document.getElementById("pet-name").textContent = pet.name;
+    document.getElementById("pet-species").textContent = `🐾 ${pet.species}`;
+    document.getElementById("pet-breed").textContent = pet.breed;
+    document.getElementById("pet-color").textContent = `🎨 ${pet.color}`;
+    document.getElementById("pet-sex").textContent = `⚥ ${pet.sex}`; 
+
+ // 🎂 Calculate Age
+    const birthday = new Date(pet.birthday);
+    const today = new Date();
+    let age = today.getFullYear() - birthday.getFullYear();
+    const monthDiff = today.getMonth() - birthday.getMonth();
+    const dayDiff = today.getDate() - birthday.getDate();
+    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+      age--;
+    }
+    document.getElementById("pet-age").textContent = `🎂 Age: ${age}`;
+
+
+
+    
   function shareAndText() {
     const status = document.getElementById('status');
     const output = document.getElementById('location');
@@ -164,20 +185,7 @@
         status.textContent = "⚠️ Unable to retrieve location.";
       });
     }
-// 🎂 Birthday calculation
-const birthday = new Date("2023-07-28"); // <-- Replace with actual birthdate
-const today = new Date();
-
-let age = today.getFullYear() - birthday.getFullYear();
-const monthDiff = today.getMonth() - birthday.getMonth();
-const dayDiff = today.getDate() - birthday.getDate();
-
-if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
-  age--;
-}
-
-// Update the span with calculated age
-document.getElementById("age").textContent = `Age: ${age}`;
+/
 
     
   </script>
